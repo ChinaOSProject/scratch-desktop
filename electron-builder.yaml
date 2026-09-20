@@ -4,6 +4,7 @@ directories:
 appId: edu.mit.scratch.scratch-desktop
 productName: "Scratch 3"
 publish: # empty provider list = don't publish
+afterPack: scripts/afterPack.js
 files:
   - dist/main/
   - dist/renderer/
