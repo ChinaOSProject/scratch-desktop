@@ -17,6 +17,7 @@
     "build:dev": "cross-env NODE_ENV=production npm run compile && npm run doBuild -- --mode=dev",
     "build:dir": "cross-env NODE_ENV=production npm run compile && npm run doBuild -- --mode=dir",
     "build:dist": "cross-env NODE_ENV=production npm run compile && npm run doBuild -- --mode=dist",
+    "build:loong64": "cross-env NODE_ENV=production npm run compile && node scripts/package-loongarch.js",
     "doBuild": "node ./scripts/electron-builder-wrapper.js",
     "dist": "npm run clean && npm run fetch && npm run build:dist",
     "distDev": "npm run clean && npm run fetch && npm run build:dev",
@@ -31,6 +32,7 @@
     "source-map-support": "0.5.19"
   },
   "devDependencies": {
+    "@electron/asar": "3.4.1",
     "@babel/core": "7.29.0",
     "@babel/plugin-proposal-object-rest-spread": "7.20.7",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",

@@ -45,6 +45,15 @@ necessary and the related build scripts, such as `build-gui`, have been removed.
 
 ### Prepare media library assets
 
+For Linux on LoongArch ABI v0 with glibc 2.28, use `npm run build:loong64` inside a
+project-specific Podman container after fetching the media assets. Set
+`ELECTRON_OVERRIDE_DIST_PATH` to an extracted and verified compatible Electron distribution
+and `LOONGARCH_BUILD_DIR` to an output directory outside the source checkout. This local
+ABI v0 adaptation packages Scratch 3.32.0 with Electron 31.7.7 from
+[Loongnix](https://ftp.loongnix.cn/electron/LoongArch/v31.7.7/). Other targets continue to use
+the Electron version in `package.json`. The entry point checks the runtime ABI and packages with `@electron/asar`
+and `dpkg-deb`, using the device's Debian architecture name `loongarch64`.
+
 In the `scratch-desktop` directory, run `npm run fetch`. Re-run this any time you update `scratch-gui` or make any
 other changes which might affect the media libraries.
 
