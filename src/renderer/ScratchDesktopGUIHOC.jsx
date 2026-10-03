@@ -160,7 +160,11 @@ const ScratchDesktopGUIHOC = function (WrappedComponent) {
             dispatch(onFetchedProjectData(projectData, loadingState)),
         onLoadedProject: (loadingState, loadSuccess) => {
             const canSaveToServer = false;
-            return dispatch(onLoadedProject(loadingState, canSaveToServer, loadSuccess));
+            // The GUI cancels upload state without a selected file while desktop VM loading continues.
+            const action = onLoadedProject(loadingState, canSaveToServer, loadSuccess);
+            if (action) {
+                dispatch(action);
+            }
         },
         onRequestNewProject: () => dispatch(requestNewProject(false)),
         onTelemetrySettingsClicked: () => dispatch(openTelemetryModal())
