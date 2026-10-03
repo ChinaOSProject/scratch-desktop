@@ -9,7 +9,11 @@ const merge = require('webpack-merge');
 
 const isProduction = (process.env.NODE_ENV === 'production');
 
-const electronVersion = childProcess.execSync(`${electronPath} --version`, {encoding: 'utf8'}).trim();
+// Electron distributions include their version, so headless builds need not start Chromium.
+const electronVersionPath = path.join(path.dirname(electronPath), 'version');
+const electronVersion = fs.existsSync(electronVersionPath) ?
+    fs.readFileSync(electronVersionPath, 'utf8').trim() :
+    childProcess.execFileSync(electronPath, ['--version'], {encoding: 'utf8'}).trim();
 console.log(`Targeting Electron ${electronVersion}`);
 
 const makeConfig = function (defaultConfig, options) {
